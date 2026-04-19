@@ -1,8 +1,15 @@
 # Advanced React Todo App
 
+## Requirements
+
+- Node.js v22.13.0 (see `.nvmrc` for version management)
+- npm v10 or higher recommended
+
 A hands-on Todo application built with React and advanced hooks.
 
 ## Features
+
+- Prevents accidental duplicate todos (asks for confirmation if you try to add a duplicate)
 
 - Add, delete, and mark todos as completed
 - Edit existing todos inline
@@ -60,6 +67,11 @@ Used for mutable/persistent values and DOM access without causing re-renders:
 npm install
 npm run dev
 ```
+
+## Notes
+
+- This project uses Vite (see `package.json` for version). If you upgrade Vite to v8 or higher, check the [Vite migration guide](https://vitejs.dev/guide/) for breaking changes.
+- Node version is enforced via `.nvmrc` and `package.json` engines field.
 
 ## Build
 
