@@ -34,6 +34,16 @@ function App() {
   const handleAddTodo = useCallback(
     (text) => {
       setTodos((current) => {
+        const exists = current.some(
+          (todo) =>
+            todo.text.trim().toLowerCase() === text.trim().toLowerCase(),
+        );
+        if (exists) {
+          const confirmAdd = window.confirm(
+            "A todo with this text already exists. Add duplicate anyway?",
+          );
+          if (!confirmAdd) return current;
+        }
         const next = [...current, makeTodo(text)];
         nextTodoNumberRef.current += 1;
         return next;
