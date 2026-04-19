@@ -1,34 +1,28 @@
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef } from "react";
 
 function TodoForm({ onAddTodo }) {
-  const [text, setText] = useState("");
   const inputRef = useRef(null);
 
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      const nextText = text.trim();
+      const nextText = inputRef.current?.value.trim();
       if (!nextText) {
         inputRef.current?.focus();
         return;
       }
       onAddTodo(nextText);
-      setText("");
+      inputRef.current.value = "";
       inputRef.current?.focus();
     },
-    [onAddTodo, text],
+    [onAddTodo],
   );
-
-  const handleChange = useCallback((event) => {
-    setText(event.target.value);
-  }, []);
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
       <input
         ref={inputRef}
-        value={text}
-        onChange={handleChange}
+        defaultValue=""
         placeholder="What needs to be done?"
         aria-label="Todo text"
       />
