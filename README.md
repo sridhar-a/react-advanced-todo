@@ -1,4 +1,4 @@
-# Advanced React Todo App
+# Advanced React Todo
 
 ## Requirements
 
@@ -10,10 +10,12 @@ A hands-on Todo application built with React and advanced hooks.
 ## Features
 
 - Prevents accidental duplicate todos (asks for confirmation if you try to add a duplicate)
-
-- Add, delete, and mark todos as completed
+- Add, delete, and mark todos as completed (only the checkbox marks as completed; clicking the text does not)
 - Edit existing todos inline
-- Filter todos by `All`, `Completed`, and `Pending`
+- Filter todos by `All`, `Completed`, and `Pending` (with live counts)
+- Filter buttons are only enabled if there are tasks in that category
+- The active filter button is green and disabled; others are enabled if their count > 0
+- The filter bar is hidden until at least one todo exists
 - Persist todos using `localStorage`
 - Responsive UI with basic animations
 
@@ -43,7 +45,7 @@ Used for mutable/persistent values and DOM access without causing re-renders:
 
 - Focus input after add/validation in `TodoForm`
 - Focus/select edit field in `TodoItem`
-- Track `nextTodoNumberRef` in `App` without triggering UI updates
+	(Previously tracked next todo number for demo purposes)
 
 ### Additional Advanced Hooks
 
@@ -53,13 +55,13 @@ Used for mutable/persistent values and DOM access without causing re-renders:
 
 ## Project Structure
 
-- `src/App.jsx` - main state, hook orchestration, and composition
+- `src/App.jsx` - main state, filter logic, and UI composition
 - `src/components/TodoForm.jsx` - create todo form
-- `src/components/FilterBar.jsx` - all/completed/pending filters
+- `src/components/FilterBar.jsx` - filter buttons with live counts and enable/disable logic
 - `src/components/TodoList.jsx` - list container
 - `src/components/TodoItem.jsx` - individual todo row with edit mode
 - `src/hooks/useLocalStorage.js` - reusable localStorage state hook
-- `src/styles.css` - responsive styling
+- `src/styles.css` - responsive styling and filter button states
 
 ## Run Locally
 

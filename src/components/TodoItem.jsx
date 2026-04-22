@@ -45,8 +45,9 @@ function TodoItem({ todo, onDelete, onToggle, onEdit }) {
   );
 
   return (
+
     <li className={`todo-item ${todo.completed ? "done" : ""}`}>
-      <label className="todo-main">
+      <div className="todo-main">
         <input
           type="checkbox"
           checked={todo.completed}
@@ -65,7 +66,7 @@ function TodoItem({ todo, onDelete, onToggle, onEdit }) {
         ) : (
           <span>{todo.text}</span>
         )}
-      </label>
+      </div>
 
       <div className="todo-actions">
         {!isEditing && (

@@ -3,7 +3,8 @@ import TodoItem from "./TodoItem";
 
 function TodoList({ todos, onDelete, onToggle, onEdit }) {
   if (!todos.length) {
-    return <p className="empty-state">No todos in this view.</p>;
+      // Removed empty state message as per new requirements
+      return null;
   }
 
   return (

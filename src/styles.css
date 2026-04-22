@@ -1,3 +1,24 @@
+/* When there are no tasks, all buttons are gray and disabled. When there are tasks, only the active filter is green and disabled. */
+.filter-bar button.active {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border: 1px solid var(--accent) !important;
+}
+/* Only the active filter button is green */
+.filter-bar button.active {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border: 1px solid var(--accent) !important;
+}
+/* Disabled filter button styles */
+.filter-bar button:disabled {
+    background: #e0e0e0;
+    color: #aaa;
+    border: 1px solid #ddd;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 1;
+}
 :root {
     --bg-1: #f9f5ef;
     --bg-2: #efe5d7;
@@ -88,8 +109,8 @@ button:hover {
     transform: translateY(-1px);
 }
 
-.todo-form button,
-.filter-bar .active {
+/* Only .todo-form button stays green, filter-bar .active handled above */
+.todo-form button {
     background: var(--accent);
     color: white;
 }

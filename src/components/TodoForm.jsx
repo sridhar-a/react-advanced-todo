@@ -23,7 +23,7 @@ function TodoForm({ onAddTodo }) {
       <input
         ref={inputRef}
         defaultValue=""
-        placeholder="What needs to be done?"
+        placeholder="What needs to be done ?"
         aria-label="Todo text"
       />
       <button type="submit">Add</button>

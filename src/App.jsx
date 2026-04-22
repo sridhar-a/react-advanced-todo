@@ -1,7 +1,6 @@
 import {
   useCallback,
   useMemo,
-  useRef,
   useState,
   useEffect,
   useTransition,
@@ -20,16 +19,18 @@ const makeTodo = (text) => ({
 function App() {
   const [todos, setTodos] = useLocalStorage("advanced-react-todos", []);
   const [activeFilter, setActiveFilter] = useState("all");
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition(); // used for filter changes
 
-  // Track stable next todo number for display without causing renders.
-  const nextTodoNumberRef = useRef(todos.length + 1);
+  const summary = useMemo(() => {
+    const completedCount = todos.filter((todo) => todo.completed).length;
+    return {
+      total: todos.length,
+      completed: completedCount,
+      pending: todos.length - completedCount,
+    };
+  }, [todos]);
 
-  useEffect(() => {
-    if (todos.length >= nextTodoNumberRef.current) {
-      nextTodoNumberRef.current = todos.length + 1;
-    }
-  }, [todos.length]);
+
 
   const handleAddTodo = useCallback(
     (text) => {
@@ -40,13 +41,11 @@ function App() {
         );
         if (exists) {
           const confirmAdd = window.confirm(
-            "A todo with this text already exists. Add duplicate anyway?",
+            "A todo with this text already exists. Add duplicate anyway ?",
           );
           if (!confirmAdd) return current;
         }
-        const next = [...current, makeTodo(text)];
-        nextTodoNumberRef.current += 1;
-        return next;
+        return [...current, makeTodo(text)];
       });
     },
     [setTodos],
@@ -79,6 +78,21 @@ function App() {
     [setTodos],
   );
 
+
+
+
+  // If the active filter's count becomes 0, switch to 'all'
+  useEffect(() => {
+    if (activeFilter !== "all") {
+      if (
+        (activeFilter === "completed" && summary.completed === 0) ||
+        (activeFilter === "pending" && summary.pending === 0)
+      ) {
+        setActiveFilter("all");
+      }
+    }
+  }, [activeFilter, summary.completed, summary.pending]);
+
   const handleFilterChange = useCallback((filter) => {
     startTransition(() => {
       setActiveFilter(filter);
@@ -95,33 +109,27 @@ function App() {
     return todos;
   }, [activeFilter, todos]);
 
-  const summary = useMemo(() => {
-    const completedCount = todos.filter((todo) => todo.completed).length;
-    return {
-      total: todos.length,
-      completed: completedCount,
-      pending: todos.length - completedCount,
-    };
-  }, [todos]);
+
 
   return (
     <main className="page-shell">
       <section className="todo-card">
         <header>
-          <p className="eyebrow">Advanced React Task</p>
-          <h1>Todo Flow</h1>
-          <p className="subtext">
-            Next todo index: #{nextTodoNumberRef.current}
-          </p>
+          <h1>Advanced React Todo</h1>
         </header>
 
         <TodoForm onAddTodo={handleAddTodo} />
-        <FilterBar
-          activeFilter={activeFilter}
-          onFilterChange={handleFilterChange}
-        />
+        {todos.length > 0 && (
+          <FilterBar
+            activeFilter={activeFilter}
+            onFilterChange={handleFilterChange}
+            allCount={todos.length}
+            completedCount={summary.completed}
+            pendingCount={summary.pending}
+          />
+        )}
 
-        {isPending && <p className="pending">Applying filter...</p>}
+        {/* No loading indicator needed for instant filter transitions */}
 
         <TodoList
           todos={filteredTodos}
@@ -130,11 +138,7 @@ function App() {
           onEdit={handleEditTodo}
         />
 
-        <footer className="summary">
-          <span>Total: {summary.total}</span>
-          <span>Completed: {summary.completed}</span>
-          <span>Pending: {summary.pending}</span>
-        </footer>
+        {/* Removed summary footer as counts will be shown in filter buttons */}
       </section>
     </main>
   );
