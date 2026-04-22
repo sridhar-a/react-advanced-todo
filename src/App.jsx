@@ -118,7 +118,7 @@ function App() {
           <h1>Advanced React Todo</h1>
         </header>
 
-        <TodoForm onAddTodo={handleAddTodo} />
+        <TodoForm onAddTodo={handleAddTodo} todoCount={todos.length} />
         {todos.length > 0 && (
           <FilterBar
             activeFilter={activeFilter}

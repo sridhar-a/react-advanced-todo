@@ -1,8 +1,18 @@
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState, useEffect } from "react";
 
-function TodoForm({ onAddTodo }) {
+
+function TodoForm({ onAddTodo, todoCount }) {
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+  useEffect(() => {
+    if (todoCount === 0) {
+      inputRef.current?.focus();
+    }
+  }, [todoCount]);
+
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
@@ -13,7 +23,9 @@ function TodoForm({ onAddTodo }) {
       }
       onAddTodo(nextText);
       setInputValue("");
-      inputRef.current?.focus();
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     },
     [onAddTodo, inputValue],
   );
