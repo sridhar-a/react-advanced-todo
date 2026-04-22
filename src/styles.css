@@ -71,6 +71,7 @@ body {
     padding: clamp(18px, 3vw, 32px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     animation: rise 450ms ease both;
+    margin-bottom: 64px; /* Add space for GitHub icon */
 }
 
 .eyebrow {

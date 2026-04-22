@@ -140,7 +140,7 @@ function App() {
 
         {/* Removed summary footer as counts will be shown in filter buttons */}
       </section>
-      <footer style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'fixed', left: 0, bottom: 16, zIndex: 100 }}>
+      <footer style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '32px 0 16px 0' }}>
         <a
           href="https://github.com/sridhar-a/react-advanced-todo"
           target="_blank"
