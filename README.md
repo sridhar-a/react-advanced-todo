@@ -11,6 +11,7 @@ A hands-on Todo application built with React and advanced hooks.
 
 - Prevents accidental duplicate todos (asks for confirmation if you try to add a duplicate)
 - Add, delete, and mark todos as completed (only the checkbox marks as completed; clicking the text does not)
+- The Add button is disabled and gray until at least two characters are typed
 - Edit existing todos inline
 - Filter todos by `All`, `Completed`, and `Pending` (with live counts)
 - Filter buttons are only enabled if there are tasks in that category
